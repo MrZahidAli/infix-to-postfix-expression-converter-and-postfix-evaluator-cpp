@@ -13,110 +13,87 @@ using namespace std;
 //stack for first task
 
 #define size 50
-class node
-	 {
-	 public:
+class node{
+	public:
 		int data;
-		node*next;
+		node* next;
 };
 class stack{
 	public:
-		node*head;
-		node*tail;
+		node *head, *tail;
 	public:
-		stack(){	
-			head=NULL;
-			tail=NULL;
+		stack(){
+			head = NULL;
+			tail = NULL;
 		}
-    	void push(char n);
-    	char pop ();
-    	char top ();	
-};
-void stack::push(char n){
-   	node* temp;
-	temp = head;
-
-	node* temp2 = new node();
-	temp2->data = n;
-	tail=temp2;
-	tail->next =NULL ;
-
-	if (head == NULL)
-	{
-		head = temp2;
-		tail = temp2;
-		tail->next=NULL;
-	}
-	
-	else {
-		while(temp->next!=NULL)
-		{
-			temp=temp->next;
+		void push(char value){
+			node *temp = new node;
+			temp -> data = value;
+			temp -> next = NULL;
+			if(head == NULL){
+				head = temp;
+				tail = temp;
+			}
+			else{
+				tail -> next = temp;
+				tail = temp;
+			}
 			
-    	}
-      temp->next=temp2;
-	}
-}
-char stack::pop(){
-	node *current = head;
-	node *previous = head;
-	
-	if(head == NULL){
-		return -1;
-	}
-	else{
-		int i = 0;
-		while(current -> next != NULL){
-			current = current -> next;
-			i++;
 		}
-		
-		if(current == head){
-			int n = current -> data;
-			head = head -> next;
-			return n; 
-		}
-		else{
-			while(i > 1){
-				previous = previous -> next;
-				i--;
+		char pop() {
+			
+    		node *current;
+			current = head;
+			
+			node* previous;
+			previous= head;
+			
+			if(head == NULL){
+				return -1;
 			}
-			int n = current -> data;
-			previous -> next = current -> next;
-	    	return n ;
-		}
-		
-	}
-}
-char stack::top(){
-	node *current = head;
-	node *previous = head;
-	
-	if(head == NULL){
-		return -1;
-	}
-	else{
-		int i = 0;
-		while(current -> next != NULL){
-			current = current -> next;
-			i++;
-		}
-		
-		if(current == head){
-			int n = current -> data;
-			return n; 
-		}
-		else{
-			while(i > 1){
-				previous = previous -> next;
-				i--;
+			else if(head == tail){
+					char headData = head -> data;
+					head = head -> next;
+					return headData;
 			}
-			int n = current -> data;
-	    	return n ;
+			else{
+    			while(current->next != NULL) {
+    				previous = current;
+    				current = current->next;	
+				}
+				tail = previous;
+				previous->next = current -> next;
+				char outChar = current -> data;
+				delete current;
+				return outChar;
+			}
 		}
-		
-	}
-}
+		char top() {
+			
+    		node *current;
+			current = head;
+			
+			node* previous;
+			previous= head;
+			
+			if(head == NULL){
+				return -1;
+			}
+			else if(head == tail){
+					char headData = head -> data;
+					return headData;
+			}
+			else{
+    			while(current->next != NULL) {
+    				previous = current;
+    				current = current->next;	
+				}
+				char outChar = current -> data;
+				return outChar;
+			}
+		}
+
+};
 
 // checking presidence of operators
 
@@ -223,110 +200,99 @@ string postfix(){
 //sloving postfix expression
 //stack for 2nd task
 
-class node2
-	 {
-	 public:
+
+
+
+
+
+
+
+
+
+
+
+class node2{
+	public:
 		int data;
-		node2*next;
+		node2* next;
 };
 class stack2{
 	public:
-		node2*head;
-		node2*tail;
+		node2 *head, *tail;
 	public:
-		stack2(){	
-			head=NULL;
-			tail=NULL;
+		stack2(){
+			head = NULL;
+			tail = NULL;
 		}
-    	void push2(int n);
-    	int pop2 ();
-    	int top2 ();	
-};
-void stack2::push2(int n){
-   	node2* temp;
-	temp = head;
-
-	node2* temp2 = new node2();
-	temp2->data = n;
-	tail=temp2;
-	tail->next =NULL ;
-
-	if (head == NULL)
-	{
-		head = temp2;
-		tail = temp2;
-		tail->next=NULL;
-	}
-	
-	else {
-		while(temp->next!=NULL)
-		{
-			temp=temp->next;
+		void push2(int value){
+			node2 *temp = new node2;
+			temp -> data = value;
+			temp -> next = NULL;
+			if(head == NULL){
+				head = temp;
+				tail = temp;
+			}
+			else{
+				tail -> next = temp;
+				tail = temp;
+			}
 			
-    	}
-      temp->next=temp2;
-	}
-}
-int stack2::pop2(){
-	node2 *current = head;
-	node2 *previous = head;
-	
-	if(head == NULL){
-		return -1;
-	}
-	else{
-		int i = 0;
-		while(current -> next != NULL){
-			current = current -> next;
-			i++;
 		}
-		
-		if(current == head){
-			int n = current -> data;
-			head = head -> next;
-			return n; 
-		}
-		else{
-			while(i > 1){
-				previous = previous -> next;
-				i--;
+		int pop2() {
+			
+    		node2 *current;
+			current = head;
+			
+			node2* previous;
+			previous= head;
+			
+			if(head == NULL){
+				return -1;
 			}
-			int n = current -> data;
-			previous -> next = current -> next;
-	    	return n ;
-		}
-		
-	}
-}
-int stack2::top2(){
-	node2 *current = head;
-	node2 *previous = head;
-	
-	if(head == NULL){
-		return -1;
-	}
-	else{
-		int i = 0;
-		while(current -> next != NULL){
-			current = current -> next;
-			i++;
-		}
-		
-		if(current == head){
-			int n = current -> data;
-			return n; 
-		}
-		else{
-			while(i > 1){
-				previous = previous -> next;
-				i--;
+			else if(head == tail){
+					int headData = head -> data;
+					head = head -> next;
+					return headData;
 			}
-			int n = current -> data;
-	    	return n ;
+			else{
+    			while(current->next != NULL) {
+    				previous = current;
+    				current = current->next;	
+				}
+				tail = previous;
+				previous->next = current -> next;
+				int outChar = current -> data;
+				delete current;
+				return outChar;
+			}
 		}
-		
-	}
-}
+		int top2() {
+			
+    		node2 *current;
+			current = head;
+			
+			node2* previous;
+			previous= head;
+			
+			if(head == NULL){
+				return -1;
+			}
+			else if(head == tail){
+					int headData = head -> data;
+					return headData;
+			}
+			else{
+    			while(current->next != NULL) {
+    				previous = current;
+    				current = current->next;	
+				}
+				int outChar = current -> data;
+				return outChar;
+			}
+		}
+
+};
+
 
 //type casting(converting characters into integers
 int typeCast(char charValue){
