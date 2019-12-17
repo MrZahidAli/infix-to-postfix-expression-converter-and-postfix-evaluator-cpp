@@ -1,5 +1,3 @@
-// Zahid Ali 2018-CS-136
-
 //1- this program will convert infix expression into valid postfix expression
 //2- this program will solve valid postfix expression and print result in numaric
 
@@ -96,120 +94,111 @@ class stack{
 };
 
 // checking presidence of operators
-
-int preseidence(char opera){
-	if(opera == '(' || opera == ')'){
-		return 0;
-	}
-	if(opera == '+' || opera == '-'){
-		return 1;
-	}
-	if(opera == '*' || opera == '/'){
-		return 2;
-	}
-	if(opera == '^'){
-		return 3;
-	}
-	return 0;
-}
-
-//converting infix expression into postfix expression
-
-string postfix(){
-	int c = 0;
-	int b = 0;
-	stack P;
-	char temp;
-	int j = 0;
-	char infix[size];
-	char operand[size];
-	cout << "Enter infix Expression: " << endl;
-	cin >> infix;
-	int length = strlen(infix);
-	for(int i = 0; i < length; i++){
-        if(infix[i]!='+' && infix[i]!='-' && infix[i]!='/' && infix[i]!='*' && infix[i]!='^' && infix[i]!='(' && infix[i]!=')'){
-        	operand[j] = infix[i];
-        	j++;
-		}
-		else{
-			if(P.head == NULL){
-				P.push(infix[i]);
-				c++;
+class postfi{
+	public:
+		int preseidence(char opera){
+			if(opera == '(' || opera == ')'){
+				return 0;
 			}
-			else{
-				if(infix[i] != '(' && infix[i] != ')'){
-					if(preseidence(infix[i]) <= preseidence(P.top())){
-						temp = P.pop();
-						c--;
-						operand[j++] = temp;
+			if(opera == '+' || opera == '-'){
+				return 1;
+			}
+			if(opera == '*' || opera == '/'){
+				return 2;
+			}
+			if(opera == '^'){
+				return 3;
+			}
+			return 0;
+		}
+		
+		//converting infix expression into postfix expression
+		
+		string postfix(){
+			int c = 0;
+			int b = 0;
+			stack P;
+			char temp;
+			int j = 0;
+			char infix[size];
+			char expression[size];
+			cout << "Enter infix Expression: " << endl;
+			cin >> infix;
+			int length = strlen(infix);
+			for(int i = 0; i < length; i++){
+		        if(infix[i]!='+' && infix[i]!='-' && infix[i]!='/' && infix[i]!='*' && infix[i]!='^' && infix[i]!='(' && infix[i]!=')'){
+		        	expression[j] = infix[i];
+		        	j++;
+				}
+				else{
+					if(P.head == NULL){
 						P.push(infix[i]);
 						c++;
 					}
 					else{
-						P.push(infix[i]);
-						c++;
-					}
-				}
-				else{
-					if(infix[i] == '('){
-						P.push(infix[i]);
-						c++;
-						b++;
-					}
-					if(infix[i] == ')'){
-						temp = P.pop();
-						c--;
-						b++;
-						while(temp != '('){
-							operand[j++] = temp;
-							temp = P.pop();
-							c--;
+						if(infix[i] != '(' && infix[i] != ')'){
+							if(preseidence(infix[i]) <= preseidence(P.top())){
+								temp = P.pop();
+								c--;
+								expression[j++] = temp;
+								P.push(infix[i]);
+								c++;
+							}
+							else{
+								P.push(infix[i]);
+								c++;
+							}
+						}
+						else{
+							if(infix[i] == '('){
+								P.push(infix[i]);
+								c++;
+								b++;
+							}
+							if(infix[i] == ')'){
+								temp = P.pop();
+								c--;
+								b++;
+								while(temp != '('){
+									expression[j++] = temp;
+									temp = P.pop();
+									c--;
+								}
+							}
 						}
 					}
 				}
 			}
+			int n = 0;
+			while(n<c){
+				expression[j++] = P.pop();
+				n++;
+			}
+			string postfixString = "";
+			cout << "postfix expression is: ";
+			if(infix[0] == '('){
+				for(int i=0; i < length - (b +1); i++){
+					cout << expression[i];
+					postfixString = postfixString + expression[i];   //converting array into string
+				}
+			//	cout << endl << "string is: " << postfixString << endl << "string length is: " << postfixString.length() << endl;
+				return postfixString;			//returning postfix string
+		
+			}else{
+				for(int i=0; i < length - b; i++){
+					cout << expression[i];
+					postfixString = postfixString + expression[i];   //converting array into string
+				}
+			//	cout << endl << "string is: " << postfixString << endl << "string length is: " << postfixString.length() << endl;
+				return postfixString;			//returning postfix string
+		
+			}
+		
 		}
-	}
-	int n = 0;
-	while(n<c){
-		operand[j++] = P.pop();
-		n++;
-	}
-	string postfixString = "";
-	cout << "postfix expression is: ";
-	if(infix[0] == '('){
-		for(int i=0; i < length - (b +1); i++){
-			cout << operand[i];
-			postfixString = postfixString + operand[i];   //converting array into string
-		}
-	//	cout << endl << "string is: " << postfixString << endl << "string length is: " << postfixString.length() << endl;
-		return postfixString;			//returning postfix string
-
-	}else{
-		for(int i=0; i < length - b; i++){
-			cout << operand[i];
-			postfixString = postfixString + operand[i];   //converting array into string
-		}
-	//	cout << endl << "string is: " << postfixString << endl << "string length is: " << postfixString.length() << endl;
-		return postfixString;			//returning postfix string
-
-	}
-
-}
+};
 
 //sloving postfix expression
 //stack for 2nd task
-
-
-
-
-
-
-
-
-
-
-
 
 class node2{
 	public:
@@ -266,67 +255,47 @@ class stack2{
 				return outChar;
 			}
 		}
-		int top2() {
-			
-    		node2 *current;
-			current = head;
-			
-			node2* previous;
-			previous= head;
-			
-			if(head == NULL){
-				return -1;
-			}
-			else if(head == tail){
-					int headData = head -> data;
-					return headData;
-			}
-			else{
-    			while(current->next != NULL) {
-    				previous = current;
-    				current = current->next;	
-				}
-				int outChar = current -> data;
-				return outChar;
-			}
-		}
 
 };
 
-
-//type casting(converting characters into integers
-int typeCast(char charValue){
-	return charValue - '0';
-}
-//solving postfix expression
-int postEvaluator(string postfix){
-	stack2 Z;
-	char operation;
-	int intOpe1;
-	int intOpe2;
-	int intPush;
-	int length = postfix.length();
-	for(int i = 0; i < length; i++){
-		if(postfix[i]!='+' && postfix[i]!='-' && postfix[i]!='/' && postfix[i]!='*' && postfix[i]!='^' && postfix[i]!='(' && postfix[i]!=')'){
-			intPush = typeCast(postfix[i]);
-			Z.push2(intPush);
+class postFixEvaluation{
+	public:
+		//type casting(converting characters into integers
+		int typeCast(char charValue){
+			return charValue - '0';
 		}
-		else{
-			intOpe1 = Z.pop2();
-			intOpe2 = Z.pop2();
-			operation = postfix[i];
-			
-			if(operation == '+') Z.push2(intOpe1 + intOpe2);
-			else if(operation == '-') Z.push2(intOpe2 - intOpe1);
-			else if(operation == '*') Z.push2(intOpe2 * intOpe1);
-			else if(operation == '/') Z.push2(intOpe2 / intOpe1);
-			else if(operation == '^') Z.push2(pow(intOpe2, intOpe1));
+		//solving postfix expression
+		int postEvaluator(string postfix){
+			stack2 Z;
+			char operation;
+			int intOpe1;
+			int intOpe2;
+			int intPush;
+			int length = postfix.length();
+			for(int i = 0; i < length; i++){
+				if(postfix[i]!='+' && postfix[i]!='-' && postfix[i]!='/' && postfix[i]!='*' && postfix[i]!='^' && postfix[i]!='(' && postfix[i]!=')'){
+					intPush = typeCast(postfix[i]);
+					Z.push2(intPush);
+				}
+				else{
+					intOpe1 = Z.pop2();
+					intOpe2 = Z.pop2();
+					operation = postfix[i];
+					
+					if(operation == '+') Z.push2(intOpe1 + intOpe2);
+					else if(operation == '-') Z.push2(intOpe2 - intOpe1);
+					else if(operation == '*') Z.push2(intOpe2 * intOpe1);
+					else if(operation == '/') Z.push2(intOpe2 / intOpe1);
+					else if(operation == '^') Z.push2(pow(intOpe2, intOpe1));
+				}
+			}
+			cout << endl << "postfix expression result: " << Z.pop2();   //printing postfix expression result into numaric data
 		}
-	}
-	cout << endl << "postfix expression result: " << Z.pop2();   //printing postfix expression result into numaric data
-}
+};
 
 int main(){
-	postEvaluator(postfix());
+	postfi P;
+	postFixEvaluation E;
+	E.postEvaluator(P.postfix());  //postfix() returning the postfix expression in string
 	return 0;
 }
